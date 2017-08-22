@@ -50,9 +50,9 @@ public class SchemaDescription implements Iterable<SchemaDescription.Field> {
     }
     values[4] = str.substring( prev );
 
-    Field r = new Field( uc( values[0] ), uc( values[1] ), Integer.parseInt( values[2] ) );
+    Field r =
+        new Field( uc( values[0] ), uc( values[1] ), Integer.parseInt( values[2] ), Boolean.parseBoolean( values[4] ) );
     r.defaultValue = uc( values[3] );
-    r.allowNull = Boolean.parseBoolean( values[4] );
     return r;
   }
 
@@ -78,12 +78,13 @@ public class SchemaDescription implements Iterable<SchemaDescription.Field> {
     public final int pentahoValueMetaType;
 
     public String defaultValue;
-    public boolean allowNull;
+    public final boolean allowNull;
 
-    public Field( String formatFieldName, String pentahoFieldName, int pentahoValueMetaType ) {
+    public Field( String formatFieldName, String pentahoFieldName, int pentahoValueMetaType, boolean allowNull ) {
       this.formatFieldName = formatFieldName;
       this.pentahoFieldName = pentahoFieldName;
       this.pentahoValueMetaType = pentahoValueMetaType;
+      this.allowNull = allowNull;
     }
 
     public String marshall() {
